@@ -7,6 +7,8 @@ const data = [{
         { answer: "Donald Tusk", isCorrect: false },
         { answer: "Jaroslaw Kaczynski", isCorrect: false },
     ],
+},
+{
     id: 2,
     question: 'Kto jest reprezentantem Polski w pilce noznej?',
     answers: [
@@ -15,6 +17,8 @@ const data = [{
         { answer: "Grzegorz Krychowiak", isCorrect: false },
         { answer: "Kamil Glik", isCorrect: false },
     ],
+},
+{
     id: 3,
     question: 'Ilu sasiadow ma Polska?',
     answers: [
@@ -23,7 +27,8 @@ const data = [{
         { answer: "piec", isCorrect: false },
         { answer: "cztery", isCorrect: false },
     ],
-}];
+},
+];
 
 const gameScreen = document.querySelector('.game');
 const resultScreen = document.querySelector('.result');
@@ -31,3 +36,28 @@ const question = document.querySelector('.question');
 const answersContainer = document.querySelector('.answers');
 const submit = document.querySelector('.submit');
 const play = document.querySelector('.play');
+
+let qIndex = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let total = 0;
+let selectedAnswer;
+
+
+
+
+const showQuestion = (qNumber) => {
+    if (qIndex === data.length) return showResult()
+    selectedAnswer = null;
+    question.textContent = data[0].question;
+    answersContainer.innerHTML = data[qNumber].answers.map((item, index) => `
+    <div class="answer">
+    <input type="radio" id=${index} name= "answer" value=${item.isCorrect}/>
+    <label for=${index}>${item.answer}</label>
+    </div>
+     `).join("")
+}
+
+const showResult = () => { }
+
+showQuestion(qIndex);
