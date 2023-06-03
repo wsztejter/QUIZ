@@ -52,12 +52,36 @@ const showQuestion = (qNumber) => {
     question.textContent = data[0].question;
     answersContainer.innerHTML = data[qNumber].answers.map((item, index) => `
     <div class="answer">
-    <input type="radio" id=${index} name= "answer" value=${item.isCorrect}/>
+    <input type="radio" id=${index} name= "answer" value=${item.isCorrect}>
     <label for=${index}>${item.answer}</label>
     </div>
      `).join("")
+    selectAnswer();
+}
+
+
+const selectAnswer = () => {
+    answersContainer.querySelectorAll("input").forEach((el) => {
+        el.addEventListener('click', (e) => {
+            selectedAnswer = e.target.value;
+        })
+    })
+}
+
+const submitAnswer = () => {
+    submit.addEventListener('click', () => {
+        if (selectedAnswer !== null) {
+            selectedAnswer === "true" ? correctCount++ : wrongCount++;
+            console.log(correctCount, wrongCount);
+            qIndex++
+            showQuestion(qIndex);
+        } else {
+            alert('Select an answer!')
+        }
+    })
 }
 
 const showResult = () => { }
 
 showQuestion(qIndex);
+submitAnswer();
